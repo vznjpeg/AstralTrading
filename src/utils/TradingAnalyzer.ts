@@ -1,10 +1,11 @@
 import { TimingMarker } from '../models/types';
 import { PlanetaryCalculator, EphemerisEngine, AspectEngine, AngularDisplacementEngine, EclipseAnchorEngine } from '../core';
 import { Planet } from '../models/types';
+import { SignalGenerator, TradingRecommendation } from './SignalGenerator';
 
 /**
  * TradingAnalyzer integrates all three GAN astro trading methods
- * to provide comprehensive market timing analysis
+ * to provide comprehensive market timing analysis with actionable signals
  */
 export class TradingAnalyzer {
   private ephemeris: EphemerisEngine;
@@ -12,6 +13,7 @@ export class TradingAnalyzer {
   private aspectEngine: AspectEngine;
   private displacementEngine: AngularDisplacementEngine;
   private eclipseEngine: EclipseAnchorEngine;
+  private signalGenerator: SignalGenerator;
 
   constructor() {
     this.ephemeris = new EphemerisEngine();
@@ -19,6 +21,7 @@ export class TradingAnalyzer {
     this.aspectEngine = new AspectEngine(this.ephemeris);
     this.displacementEngine = new AngularDisplacementEngine(this.ephemeris);
     this.eclipseEngine = new EclipseAnchorEngine();
+    this.signalGenerator = new SignalGenerator();
   }
 
   async initialize() {
@@ -38,6 +41,8 @@ export class TradingAnalyzer {
     displacements: TimingMarker[];
     eclipseProjections: TimingMarker[];
     combined: TimingMarker[];
+    signals: TradingRecommendation[];
+    outlook: { outlook: string; description: string; recommendation: string };
   }> {
     const moon = this.calculator.getPlanet('moon')!;
     const markers: TimingMarker[] = [];
@@ -63,7 +68,6 @@ export class TradingAnalyzer {
 
     // Method 3: Eclipse Anchor
     let eclipseAnchor = this.eclipseEngine.createEclipseAnchor('solar', eclipseDate);
-    // Note: In real usage, you'd calibrate with actual first reaction
     const estimatedReaction = new Date(eclipseDate.getTime() + 11 * 24 * 60 * 60 * 1000);
     eclipseAnchor = this.eclipseEngine.calibrateWithFirstReaction(eclipseAnchor, estimatedReaction);
     eclipseAnchor = this.eclipseEngine.projectForwardDates(eclipseAnchor, 4);
@@ -73,11 +77,17 @@ export class TradingAnalyzer {
     // Sort all markers by date
     const combined = markers.sort((a, b) => a.date.getTime() - b.date.getTime());
 
+    // Generate trading signals
+    const signals = this.signalGenerator.generateSignals(combined);
+    const outlook = this.signalGenerator.generateOutlook(signals, combined.length);
+
     return {
       aspects: aspectMarkers,
       displacements: displacementMarkers,
       eclipseProjections: eclipseMarkers,
       combined,
+      signals,
+      outlook,
     };
   }
 
