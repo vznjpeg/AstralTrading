@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NotLoom — permissions</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #16161d; color: #f1f1f4;
+        display: flex; align-items: center; justify-content: center;
+        min-height: 100vh; margin: 0;
+      }
+      .card {
+        max-width: 420px; padding: 32px; text-align: center;
+        background: #1e1e28; border-radius: 16px;
+      }
+      h1 { font-size: 18px; }
+      p { color: #b9b9c6; font-size: 14px; line-height: 1.5; }
+      button {
+        border: 0; border-radius: 8px; cursor: pointer;
+        background: #7c5cff; color: #fff; font-size: 14px; font-weight: 600;
+        padding: 10px 20px; margin-top: 12px;
+      }
+      button:hover { background: #8d71ff; }
+      .ok { color: #6fdb8f; }
+      .err { color: #ff8a8c; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>One-time setup</h1>
+      <p id="msg">
+        NotLoom needs your permission to use the <span id="what"></span>.
+        Chrome will remember this — you'll only be asked once.
+      </p>
+      <button id="grant">Allow access</button>
+      <p id="result" hidden></p>
+    </div>
+    <script src="permissions.js"></script>
+  </body>
+</html>

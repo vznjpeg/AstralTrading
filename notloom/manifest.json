@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "NotLoom",
+  "version": "1.0.0",
+  "description": "Free, local-first screen recorder. Record your screen, camera and mic — no account, no subscription, no uploads.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "desktopCapture",
+    "offscreen",
+    "storage",
+    "unlimitedStorage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "NotLoom — record your screen"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["camera.html", "camera.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "commands": {
+    "toggle-recording": {
+      "suggested_key": { "default": "Alt+Shift+R" },
+      "description": "Start / stop recording"
+    },
+    "pause-resume": {
+      "suggested_key": { "default": "Alt+Shift+P" },
+      "description": "Pause / resume recording"
+    }
+  }
+}

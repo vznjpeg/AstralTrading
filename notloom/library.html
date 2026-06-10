@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NotLoom — My videos</title>
+    <link rel="stylesheet" href="library.css" />
+  </head>
+  <body>
+    <header>
+      <img src="icons/icon48.png" alt="" width="26" height="26" />
+      <h1>My videos</h1>
+      <span id="stats"></span>
+    </header>
+
+    <main>
+      <div id="empty" hidden>
+        <p>No recordings yet.</p>
+        <p class="sub">Click the NotLoom icon in your toolbar (or press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>) to record your first video.</p>
+      </div>
+      <div id="grid"></div>
+    </main>
+
+    <script src="db.js"></script>
+    <script src="library.js"></script>
+  </body>
+</html>

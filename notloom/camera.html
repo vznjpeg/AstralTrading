@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+      video {
+        width: 100%; height: 100%; object-fit: cover;
+        transform: scaleX(-1); /* mirror, like every webcam preview */
+      }
+      .err {
+        color: #aaa; font: 12px -apple-system, sans-serif; text-align: center;
+        display: flex; align-items: center; justify-content: center;
+        height: 100%; padding: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay muted playsinline></video>
+    <script src="camera.js"></script>
+  </body>
+</html>

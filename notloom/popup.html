@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <img src="icons/icon48.png" alt="" width="22" height="22" />
+      <h1>NotLoom</h1>
+      <button id="library" class="ghost" title="My videos">My videos</button>
+    </header>
+
+    <main id="idle-view">
+      <div class="modes" role="radiogroup">
+        <label class="mode">
+          <input type="radio" name="mode" value="screen" checked />
+          <span class="mode-icon">🖥</span>
+          <span>Screen</span>
+        </label>
+        <label class="mode">
+          <input type="radio" name="mode" value="camera" />
+          <span class="mode-icon">🎥</span>
+          <span>Camera only</span>
+        </label>
+      </div>
+
+      <label class="toggle">
+        <input type="checkbox" id="mic" checked />
+        <span>Microphone</span>
+      </label>
+      <label class="toggle" id="camera-row">
+        <input type="checkbox" id="camera" checked />
+        <span>Camera bubble</span>
+      </label>
+      <label class="toggle" id="sysaudio-row">
+        <input type="checkbox" id="sysaudio" checked />
+        <span>Tab / system audio (when offered)</span>
+      </label>
+
+      <button id="start" class="primary">Start recording</button>
+      <p class="hint">Shortcut: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd></p>
+      <p id="error" class="error" hidden></p>
+    </main>
+
+    <main id="rec-view" hidden>
+      <div class="rec-row">
+        <span class="rec-dot"></span>
+        <span id="rec-timer">00:00</span>
+        <span id="rec-label">Recording…</span>
+      </div>
+      <div class="rec-actions">
+        <button id="pause" class="ghost">Pause</button>
+        <button id="stop" class="primary">Stop &amp; save</button>
+        <button id="cancel" class="ghost danger">Discard</button>
+      </div>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
